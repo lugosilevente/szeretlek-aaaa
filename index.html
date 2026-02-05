@@ -26,7 +26,52 @@
       overflow: hidden;
     }
 
-    /* HEADER */
+    /* ===== STEP 1: NOT A ROBOT ===== */
+    .robot {
+      padding: 24px;
+    }
+
+    .robot-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .checkbox {
+      width: 26px;
+      height: 26px;
+      border: 2px solid #9aa0a6;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a73e8;
+      font-size: 20px;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid #ccc;
+      border-top: 3px solid #1a73e8;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .robot-info {
+      margin-left: auto;
+      text-align: right;
+      font-size: 11px;
+      color: #5f6368;
+      line-height: 1.2;
+    }
+
+    /* ===== STEP 2: IMAGE CAPTCHA ===== */
     .header {
       background: #f06277;
       color: white;
@@ -43,7 +88,6 @@
       opacity: .9;
     }
 
-    /* GRID */
     .grid-wrapper {
       padding: 10px;
       background: #fff;
@@ -73,7 +117,6 @@
       border-color: #1a73e8;
     }
 
-    /* FOOTER */
     .footer {
       display: flex;
       align-items: center;
@@ -100,11 +143,11 @@
       cursor: pointer;
     }
 
-    /* FINAL SCREEN */
+    /* ===== FINAL ===== */
     .final {
+      display: none;
       text-align: center;
       padding: 40px 20px;
-      display: none;
     }
 
     .final h1 {
@@ -124,7 +167,24 @@
 </head>
 <body>
 
-<div class="captcha" id="step2">
+<!-- STEP 1 -->
+<div class="captcha" id="step1">
+  <div class="robot">
+    <div class="robot-row" onclick="verifyRobot()">
+      <div class="checkbox" id="checkbox"></div>
+      <span>I'm not a robot</span>
+
+      <div class="robot-info">
+        <span class="material-icons" style="font-size:14px;">info</span><br>
+        reCAPTCHA<br>
+        Privacy · Terms
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="captcha" id="step2" style="display:none">
 
   <div class="header">
     <strong>Select all images with<br>your Valentine</strong>
@@ -148,29 +208,39 @@
   <div class="footer">
     <span class="material-icons">refresh</span>
     <span class="material-icons">info_outline</span>
-
-    <button class="verify-btn" onclick="verify()">VERIFY</button>
+    <button class="verify-btn" onclick="verifyImages()">VERIFY</button>
   </div>
 </div>
 
+<!-- STEP 3 -->
 <div class="captcha final" id="final">
   <div class="heart">❤️</div>
   <h1>Happy Valentine’s Day</h1>
-  <p>You selected perfectly 😉</p>
+  <p>I LOVE YOU SO MUCH❤️❤️</p>
 </div>
 
 <script>
+  function verifyRobot() {
+    const box = document.getElementById("checkbox");
+    box.innerHTML = '<div class="spinner"></div>';
+
+    setTimeout(() => {
+      box.innerHTML = '<span class="material-icons">check</span>';
+      document.getElementById("step1").style.display = "none";
+      document.getElementById("step2").style.display = "block";
+    }, 1200);
+  }
+
   function toggle(img) {
     img.classList.toggle("selected");
   }
 
-  function verify() {
-    const selected = document.querySelectorAll(".selected").length;
-    if (selected === 9) {
+  function verifyImages() {
+    if (document.querySelectorAll(".selected").length === 9) {
       document.getElementById("step2").style.display = "none";
       document.getElementById("final").style.display = "block";
     } else {
-      alert("Please select all images 💗");
+      alert("Jelöld ki az összeset 💗");
     }
   }
 </script>
