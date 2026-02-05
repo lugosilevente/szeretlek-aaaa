@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verification</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #fdecef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .captcha {
+      width: 360px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      background: #f06277;
+      color: white;
+      padding: 16px;
+    }
+
+    .header strong {
+      font-size: 18px;
+      display: block;
+    }
+
+    .header span {
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    /* GRID */
+    .grid-wrapper {
+      padding: 10px;
+      background: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .grid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border .15s, transform .15s;
+    }
+
+    .grid img:hover {
+      transform: scale(1.04);
+    }
+
+    .grid img.selected {
+      border-color: #1a73e8;
+    }
+
+    /* FOOTER */
+    .footer {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+    }
+
+    .footer .material-icons {
+      font-size: 20px;
+      color: #777;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .verify-btn {
+      margin-left: auto;
+      background: #f06277;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* FINAL SCREEN */
+    .final {
+      text-align: center;
+      padding: 40px 20px;
+      display: none;
+    }
+
+    .final h1 {
+      color: #f06277;
+      margin-bottom: 10px;
+    }
+
+    .heart {
+      font-size: 50px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="captcha" id="step2">
+
+  <div class="header">
+    <strong>Select all images with<br>your Valentine</strong>
+    <span>Click verify once there are none left.</span>
+  </div>
+
+  <div class="grid-wrapper">
+    <div class="grid">
+      <img src="me1.jpg" onclick="toggle(this)">
+      <img src="me2.jpg" onclick="toggle(this)">
+      <img src="me3.jpg" onclick="toggle(this)">
+      <img src="me4.jpg" onclick="toggle(this)">
+      <img src="me5.jpg" onclick="toggle(this)">
+      <img src="me6.jpg" onclick="toggle(this)">
+      <img src="me7.jpg" onclick="toggle(this)">
+      <img src="me8.jpg" onclick="toggle(this)">
+      <img src="me9.jpg" onclick="toggle(this)">
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="material-icons">refresh</span>
+    <span class="material-icons">info_outline</span>
+
+    <button class="verify-btn" onclick="verify()">VERIFY</button>
+  </div>
+</div>
+
+<div class="captcha final" id="final">
+  <div class="heart">❤️</div>
+  <h1>Happy Valentine’s Day</h1>
+  <p>You selected perfectly 😉</p>
+</div>
+
+<script>
+  function toggle(img) {
+    img.classList.toggle("selected");
+  }
+
+  function verify() {
+    const selected = document.querySelectorAll(".selected").length;
+    if (selected === 9) {
+      document.getElementById("step2").style.display = "none";
+      document.getElementById("final").style.display = "block";
+    } else {
+      alert("Please select all images 💗");
+    }
+  }
+</script>
+
+</body>
+</html>
