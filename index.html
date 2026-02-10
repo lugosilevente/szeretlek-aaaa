@@ -144,28 +144,40 @@
     }
 
     /* ===== FINAL ===== */
-    .final {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
-    }
+   .final {
+  display: none;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: 
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("final.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+}
 
-    .final h1 {
-      color: #f06277;
-      margin-bottom: 10px;
-    }
+.final-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-    .heart {
-      font-size: 50px;
-      animation: pulse 1.5s infinite;
-    }
+.final h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
 
-    @keyframes pulse {
-      50% { transform: scale(1.2); }
-    }
-  </style>
-</head>
-<body>
+.final p {
+  font-size: 18px;
+}
+
+.heart {
+  font-size: 60px;
+  animation: pulse 1.5s infinite;
+}
 
 <!-- STEP 1 -->
 <div class="captcha" id="step1">
@@ -213,11 +225,14 @@
 </div>
 
 <!-- STEP 3 -->
-<div class="captcha final" id="final">
-  <div class="heart">❤️</div>
-  <h1>Happy Valentine’s Day</h1>
-  <p>I LOVE YOU SO MUCH❤️❤️</p>
+<<div class="final" id="final">
+  <div class="final-content">
+    <div class="heart">❤️</div>
+    <h1>Happy Valentine’s Day</h1>
+    <p>NAGYON SZERETLEK❤️❤️</p>
+  </div>
 </div>
+
 
 <script>
   function verifyRobot() {
